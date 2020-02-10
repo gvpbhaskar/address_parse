@@ -34,13 +34,15 @@ RUN cd /usr/local/libpostal-1.1-alpha && \
 
 
 # Install Libpostal python Bindings
-WORKDIR /home/app/
+RUN mkdir /code
+WORKDIR /code
+ADD . /code/
 RUN pip3 install postal
 RUN pip3 install pandas
 RUN pip3 install numpy
 RUN pip3 install flask
 RUN pip3 install pyjade
-COPY country_addvers.txt world-cities.txt /home/app/
+ADD country_addvers.txt world-cities.txt /code
 COPY sshd_config /etc/ssh/
 COPY init.sh /usr/local/bin/
 RUN chmod u+x /usr/local/bin/init.sh
