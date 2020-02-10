@@ -40,7 +40,7 @@ RUN pip3 install pandas
 RUN pip3 install numpy
 RUN pip3 install flask
 RUN pip3 install pyjade
-COPY main.py __init__.py country_addvers.txt world-cities.txt /home/app/
+COPY country_addvers.txt world-cities.txt /home/app/
 COPY sshd_config /etc/ssh/
 COPY init.sh /usr/local/bin/
 RUN chmod u+x /usr/local/bin/init.sh
