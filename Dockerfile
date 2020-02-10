@@ -1,11 +1,5 @@
 FROM ubuntu:latest
 
-RUN mkdir /code
-WORKDIR /code
-ADD requirements.txt /code/
-RUN pip install -r requirements.txt
-ADD . /code/
-
 ENV SSH_PASSWD "root:Docker!"
 RUN apt-get update \
         && apt-get install -y --no-install-recommends dialog \
@@ -42,7 +36,11 @@ RUN cd /usr/local/libpostal-1.1-alpha && \
 	make -j4 && \
 	make install && \
 	ldconfig
-
+RUN mkdir /code
+WORKDIR /code
+ADD requirements.txt /code/
+RUN pip3 install -r requirements.txt
+ADD . /code/
 
 # Install Libpostal python Bindings
 ADD country_addvers.txt world-cities.txt /code/
