@@ -1,6 +1,17 @@
 FROM ubuntu:latest
 
-USER root
+RUN mkdir /code
+WORKDIR /code
+ADD requirements.txt /code/
+RUN pip install -r requirements.txt
+ADD . /code/
+
+ENV SSH_PASSWD "root:Docker!"
+RUN apt-get update \
+        && apt-get install -y --no-install-recommends dialog \
+        && apt-get update \
+	&& apt-get install -y --no-install-recommends openssh-server \
+	&& echo "$SSH_PASSWD" | chpasswd 
 
 # LIBPOSTAL
 # Install Libpostal dependencies
@@ -34,13 +45,6 @@ RUN cd /usr/local/libpostal-1.1-alpha && \
 
 
 # Install Libpostal python Bindings
-RUN mkdir /code
-WORKDIR /code
-RUN pip3 install postal
-RUN pip3 install pandas
-RUN pip3 install numpy
-RUN pip3 install flask
-RUN pip3 install pyjade
 ADD country_addvers.txt world-cities.txt /code/
 COPY sshd_config /etc/ssh/
 COPY init.sh /usr/local/bin/
