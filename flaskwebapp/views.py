@@ -74,14 +74,14 @@ def address_parse(mystr):
 				#token.remove(token[j])
 	if flag==0:
 		s =s.join(token)
-	print("final String: " + s)
+	#print("final String: " + s)
 	op= parse_address(s)
-	print(op)
+	#print(op)
 	final_lst.append(op)
 
 	df1 = pd.DataFrame(final_lst)
-	print(df1.shape)
-	df1.to_csv('out_put.txt',index=False)
+	#print(df1.shape)
+	#df1.to_csv('out_put.txt',index=False)
 
 	data=pd.DataFrame(columns=['house','housenumber','building','road','suburb','city','citydistrict','state','statedistrict','country','postcode'],index= range(1))
 	data['country']=data.country.replace(np.nan,'',regex = True)
@@ -147,7 +147,7 @@ def address_parse(mystr):
 					if city!='':
 						if df_cities.loc[df_cities['name'] == city].country.values[0] !='' :
 							data['country'][i] = df_cities.loc[df_cities['name'] == city].country.values[0]
-							print(data['country'][i])
+							#print(data['country'][i])
 				except IndexError:
 					print("An error occurred City name")
 			if data['state'][i]!='':
@@ -155,7 +155,7 @@ def address_parse(mystr):
 					if state!='':
 						if df_cities.loc[df_cities['name'] == state].country.values[0] !='' :
 							data['country'][i] = df_cities.loc[df_cities['name'] ==state].country.values[0]
-							print(data['country'][i])
+							#print(data['country'][i])
 				except IndexError:
 					print("An error occurred state name")
 	#data.to_csv('data.txt',index=False)
